@@ -94,7 +94,7 @@ export default function Hero() {
             Masters in Refurbishment In Leicester Since 1990
           </h1>
           <p className="mt-4 text-lg text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 1)' }}>
-            Specialists in property renovations and extensions across Leicester, South Leicestershite, Rutland and the East Midlands.
+            Specialists in property renovations and extensions across Leicester, South Leicestershire, Rutland and the East Midlands.
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <Button variant="tertiary" to="/contact" aria-label="Contact us">
