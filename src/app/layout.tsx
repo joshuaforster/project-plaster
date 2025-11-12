@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
-import GoogleAds from "./customComponents/Tags/google";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +16,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lambert & Wright",
-  description: "Bespoke Property Renovations in the Midlands",
+  title: "Project Plaster | Professional Plastering in Norwich, Norfolk & Suffolk",
+  description:
+    "Professional plastering, re-skimming and repair services across Norwich, Norfolk & Suffolk. Clean finish, no shortcuts. Get a free quote today.",
+  keywords: [
+    "plastering Norwich",
+    "plasterer Norfolk",
+    "plastering Suffolk",
+    "re-skimming Norwich",
+    "wall plaster repairs",
+    "ceiling plastering",
+    "Project Plaster Norwich",
+  ],
+  openGraph: {
+    title: "Project Plaster | Professional Plastering in Norwich, Norfolk & Suffolk",
+    description:
+      "Fresh plastering, re-skimming and repairs. Clean finish, done properly.",
+    url: "https://projectplaster.co.uk",
+    siteName: "Project Plaster",
+    type: "website",
+    images: [
+      {
+        url: "/images/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Plastering project finish",
+      },
+    ],
+  },
   icons: {
     icon: [
-      { url: "/images/Favicon/L&Wicon.png" },
-      { url: "/images/Favicon/L&Wicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/images/Favicon/projectplaster.png" },
+      { url: "/images/Favicon/projectplaster.png", type: "image/png", sizes: "32x32" },
     ],
-    apple: "/images/Favicon/L&Wicon.png",
+    apple: "/images/Favicon/projectplaster.png",
   },
 };
 
@@ -35,7 +61,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleAds />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header />

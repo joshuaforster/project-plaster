@@ -1,27 +1,20 @@
-import React from 'react';
-import AboutHead from '../Pages/AboutPages/AboutHead';
-import WhyJLR from '../Pages/AboutPages/whyJLR';
-import MeetTeam from '../Pages/AboutPages/MeetTeam';
-import HeaderSection from '../customComponents/headerSection';
-import SingleReview from '../customComponents/ReviewComponents/SingleReview';
-import { reviews } from '../Data/reviewData';
+import AboutHead from "../Pages/AboutPages/AboutHead";
+import AboutProcess from "../Pages/AboutPages/AboutProcess";
+import HeaderSection from "../customComponents/headerSection";
+import CTA from "../customComponents/cta";
 
-const About = () => {
+export default function About() {
   return (
-    <div>
-        <HeaderSection
-          image='/images/projectVI/bumblebee-cottage-main-street-burton-overy-7-66a36f4a25cce.webp'
-          title="About"
+    <>
+      {/* Replaces Helmet + Header */}
+      <HeaderSection
+        image="/images/jack2.webp"
+        title="About"
       />
-      <AboutHead />
-      <SingleReview 
-        name={reviews[0].name} 
-        text={reviews[0].text}
-      />
-      <WhyJLR />
-      <MeetTeam/>
-    </div>
-  );
-};
 
-export default About;
+      <AboutHead />
+      <AboutProcess />
+      <CTA />
+    </>
+  );
+}

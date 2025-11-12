@@ -1,32 +1,37 @@
-import React from 'react';
+import React from "react";
 
 const Location: React.FC = () => {
-  const headline = "Our Location";
-  const description = (
-    <>
-      <p className="mb-4 text-lg text-[#3B464B]">
-        We are located in the heart of Leicester, a vibrant and historic city in the Midlands. Our office is easily accessible and situated in a bustling area with a rich history and modern amenities.
-      </p>
-      <p className="mb-4 text-lg text-[#3B464B]">
-        Leicester is known for its beautiful architecture, cultural heritage, and welcoming community. It offers a perfect blend of traditional charm and contemporary living, making it an ideal place for both work and leisure.
-      </p>
-    </>
-  );
-
   return (
-    <section className="bg-gray-100">
-      <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-        <div className="font-light ">
-          <h2 className="mb-4 text-4xl tracking-tight text-[#3B464B]">
-            {headline}
-          </h2 >
-          {description}
+    <section className="bg-[#F5F5F4] py-24 sm:py-32">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 px-6 lg:px-8 items-center">
+
+        {/* TEXT */}
+        <div>
+          <h2 className="text-4xl font-bold text-[#1F2937] leading-tight">
+            Based in <span className="text-[#D7BFA4]">Norfolk</span>
+          </h2>
+
+          <p className="mt-6 text-lg text-[#3B464B] leading-8">
+            We’re based in <strong>Norwich</strong>, working across
+            <strong> Norfolk and Suffolk</strong>.
+          </p>
+
+          <p className="mt-4 text-lg text-[#3B464B] leading-8">
+            Whether it’s a small patch repair or a full re-skim, we turn up on time,
+            work tidy and leave a smooth finish that’s ready to paint.
+          </p>
+
+          <p className="mt-4 text-lg text-[#3B464B] leading-8">
+            You’ll get a clear price upfront — no day-rate guessing, no hidden extras.
+          </p>
         </div>
-        <div className="grid gap-4 mt-8">
+
+        {/* MAP */}
+        <div className="w-full h-[400px] lg:h-[500px] overflow-hidden rounded-xl shadow-xl ring-1 ring-gray-400/30">
           <iframe
-            title="Our Location in Leicester"
-            className="mt-4 w-full lg:mt-10"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47094.52549403851!2d-1.1544990894195147!3d52.635047020743654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487760917fff12e3%3A0x5a9d5f8d9a9a4d29!2sLeicester%2C%20UK!5e0!3m2!1sen!2suk!4v1716115566626!5m2!1sen!2suk"
+            title="Project Plaster - Norwich, Norfolk"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9693.726947524138!2d1.2806866!3d52.6308859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d9e4c2258b02d1%3A0xdeb26a6e0e2f03be!2sNorwich!5e0!3m2!1sen!2suk!4v1716155000000!5m2!1sen!2suk"
+            className="w-full h-full border-0"
             loading="lazy"
           ></iframe>
         </div>
