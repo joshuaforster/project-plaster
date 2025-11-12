@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-// import Image from "next/image";
 
 export default function Header() {
   const navigationLinks = [
@@ -22,35 +21,32 @@ export default function Header() {
   const handleLinkClick = () => setMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 bg-[#E4E4E3] shadow-lg z-50">
+    <header className="sticky top-0 z-50 bg-[#1A1F24] text-[#EDEDED] border-b border-[#2E3337]">
       <nav className="px-4 lg:px-6 py-4">
         <div className="flex items-center justify-between mx-auto max-w-screen-xl">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center" onClick={handleLinkClick}>
-            {/* <Image
-            src={image}
-            alt="plastering project"
-            fill
-            className="object-cover"
-            priority
-          /> */}
-          <p>Project Plaster</p>
+          {/* LOGO */}
+          <Link
+            href="/"
+            className="flex items-center text-[#EDEDED] font-bold text-xl tracking-wide uppercase"
+            onClick={handleLinkClick}
+          >
+            Project&nbsp;Plaster
           </Link>
 
-          {/* Desktop Menu */}
+          {/* DESKTOP MENU */}
           <div className="hidden lg:flex lg:items-center lg:space-x-8">
             {navigationLinks.map((link, index) => (
               <Link
                 key={index}
                 href={link.path}
                 onClick={handleLinkClick}
-                className={`text-sm font-light uppercase transition duration-300 ${
+                className={`text-sm uppercase font-light transition-colors duration-300 px-3 py-2 ${
                   link.isPrimary
-                    ? 'text-white bg-[#323D40] px-4 py-2 rounded hover:bg-[#1f2a2b]'
+                    ? 'bg-[#D7BFA4] text-[#1A1F24] hover:bg-[#C5AB8E]'
                     : pathname === link.path
-                    ? 'text-[#C58C49]' // active
-                    : 'text-[#323D40]' // default
+                    ? 'text-[#D7BFA4]'
+                    : 'text-[#EDEDED] hover:text-[#D7BFA4]'
                 }`}
               >
                 {link.name}
@@ -58,12 +54,12 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden items-center flex">
+          {/* MOBILE MENU BUTTON */}
+          <div className="lg:hidden flex items-center">
             <button
               type="button"
               onClick={toggleMobileMenu}
-              className="inline-flex flex-col items-center justify-center p-2 rounded-lg focus:outline-none"
+              className="inline-flex flex-col items-center justify-center p-2 focus:outline-none"
               aria-expanded={isMobileMenuOpen}
             >
               <div className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}>
@@ -75,17 +71,19 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 border-t border-gray-300">
-            <ul className="flex flex-col space-y-2 pt-4">
+          <div className="lg:hidden mt-4 border-t border-[#2E3337]">
+            <ul className="flex flex-col space-y-1 pt-4">
               {navigationLinks.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.path}
                     onClick={handleLinkClick}
-                    className={`block text-sm font-light uppercase py-2 pr-4 pl-3 transition duration-300 border-b border-gray-300 ${
-                      pathname === link.path ? 'text-[#C58C49]' : 'text-[#323D40]'
+                    className={`block text-sm uppercase py-2 px-3 transition duration-200 ${
+                      pathname === link.path
+                        ? 'text-[#D7BFA4]'
+                        : 'text-[#EDEDED] hover:text-[#D7BFA4]'
                     }`}
                   >
                     {link.name}
@@ -97,7 +95,7 @@ export default function Header() {
         )}
       </nav>
 
-      {/* Hamburger Styles */}
+      {/* HAMBURGER STYLES */}
       <style>{`
         .hamburger {
           width: 24px;
@@ -108,7 +106,7 @@ export default function Header() {
         .hamburger .line {
           width: 100%;
           height: 2px;
-          background-color: #000;
+          background-color: #EDEDED;
           position: absolute;
           left: 0;
           transition: all 0.3s ease;
@@ -122,11 +120,9 @@ export default function Header() {
           transform: rotate(45deg);
           top: 8px;
         }
-
         .hamburger.open .line:nth-child(2) {
           opacity: 0;
         }
-
         .hamburger.open .line:nth-child(3) {
           transform: rotate(-45deg);
           top: 8px;

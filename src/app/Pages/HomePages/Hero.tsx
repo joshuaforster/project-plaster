@@ -9,12 +9,11 @@ import Image from 'next/image';
 export default function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Handle image rotation every 4s
+  // Rotate background images every 4 seconds
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 4000);
-
     return () => clearInterval(intervalId);
   }, []);
 
@@ -48,44 +47,58 @@ export default function Hero() {
           />
         ))}
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Dark navy overlay */}
+        <div className="absolute inset-0 bg-[#1A1F24]/20"></div>
       </div>
 
-      {/* Hero content */}
+      {/* HERO CONTENT */}
       <div className="w-full px-4 lg:px-6 max-w-screen-xl mx-auto flex items-center">
-        <div className="bg-black/70 backdrop-blur-sm p-6 lg:p-8 rounded-lg max-w-2xl lg:max-w-xl lg:pt-8 text-left">
-
-            <p
+        <div className="bg-[#1A1F24]/90 backdrop-blur-sm p-8 lg:p-10 max-w-2xl lg:max-w-xl text-left border-l-4 border-[#D7BFA4]">
+          
+          {/* Tagline */}
+          <p
             ref={paragraphRef}
-            className={`mt-2 text-lg leading-8 text-white text-shadow ${
-                paragraphInView ? 'animate-slideInLeft' : 'opacity-0'
+            className={`text-lg text-[#EDEDED] tracking-wide ${
+              paragraphInView ? 'animate-slideInLeft' : 'opacity-0'
             }`}
-            >
-            Project Plaster – Norwich, Norfolk & Suffolk
-            </p>
+          >
+            Project Plaster — Norwich, Norfolk & Suffolk
+          </p>
 
-            <h1
+          {/* Main Heading */}
+          <h1
             ref={headerRef}
-            className={`text-5xl font-bold text-white text-shadow mt-4 ${
-                headerInView ? 'animate-slideInRight' : 'opacity-0'
+            className={`text-5xl font-bold mt-4 leading-tight ${
+              headerInView ? 'animate-slideInRight' : 'opacity-0'
             }`}
+          >
+            <span className="text-[#EDEDED]">Smooth finish.</span>{' '}
+            <span className="text-[#D7BFA4]">Done properly.</span>
+          </h1>
+
+          {/* Description */}
+          <p className="mt-4 text-lg text-[#EDEDED]/90 leading-relaxed max-w-prose">
+            Fresh plastering, re-skimming and repairs — all prep work included.  
+            No shortcuts. No half-finished jobs. Just a clean, solid finish that’s ready to paint.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-10 flex items-center gap-x-6">
+            <Button
+              variant="tertiary"
+              to="/contact"
+              className="bg-[#D7BFA4] text-[#1A1F24] px-6 py-3 font-semibold hover:bg-[#C5AB8E] transition-colors duration-300"
             >
-            Professional Plastering. Done Properly.
-            </h1>
-
-            <p className="mt-4 text-lg text-white text-shadow leading-relaxed">
-            Fresh plastering, re-skimming and repairs — all prep work included.
-            No shortcuts. No half-finished jobs. Just a clean finish that’s ready to paint.
-            </p>
-
-            <div className="mt-10 flex items-center gap-x-6">
-            <Button variant="tertiary" to="/contact">Get A Free Quote</Button>
-            <Button variant="tertiary" to="/about">
-                Find Out More <span aria-hidden="true">→</span>
+              Get a Free Quote
             </Button>
-            </div>
-
+            <Button
+              variant="tertiary"
+              to="/about"
+              className="text-[#D7BFA4] border border-[#D7BFA4] px-6 py-3 font-semibold hover:bg-[#D7BFA4] hover:text-[#1A1F24] transition-colors duration-300"
+            >
+              Find Out More →
+            </Button>
+          </div>
         </div>
       </div>
     </div>

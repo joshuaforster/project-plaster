@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface ButtonProps {
-  variant: 'primary' | 'secondary' | 'tertiary' | 'tertiary-black';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'tertiary-dark';
   children: React.ReactNode;
   onClick?: () => void;
   to?: string;
@@ -12,16 +12,25 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
 }
 
-const Button: React.FC<ButtonProps> = ({ variant, children, onClick, to, className = '', type = 'button' }) => {
-  const baseStyles = 'px-4 py-2 mt-4 mb-4 focus:outline-none focus:ring-2 focus:ring-offset-2';
+const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  children,
+  onClick,
+  to,
+  className = '',
+  type = 'button',
+}) => {
+  const baseStyles =
+    'px-6 py-3 font-semibold uppercase tracking-wide transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
+
   const variantStyles =
     variant === 'primary'
-      ? 'bg-[#C58C49] text-white hover:bg-[#d4af37] focus:ring-[#d4af37]'
+      ? 'bg-[#D7BFA4] text-[#1A1F24] hover:bg-[#C5AB8E] focus:ring-[#C5AB8E]'
       : variant === 'secondary'
-      ? 'bg-[#55B6D9] text-white hover:bg-[#138db8] focus:ring-[#138db8]'
+      ? 'bg-transparent border border-[#1A1F24] text-[#1A1F24] hover:bg-[#1A1F24] hover:text-[#EDEDED] focus:ring-[#1A1F24]'
       : variant === 'tertiary'
-      ? 'bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 focus:ring-white shadow-md'
-      : 'bg-transparent border border-black text-black hover:bg-black hover:text-white focus:ring-black';
+      ? 'bg-transparent border border-[#EDEDED] text-[#EDEDED] hover:bg-[#EDEDED] hover:text-[#1A1F24] focus:ring-[#EDEDED]'
+      : 'bg-[#1A1F24] text-[#EDEDED] hover:bg-[#2A2F35] focus:ring-[#EDEDED]'; // tertiary-dark
 
   const buttonClasses = `${baseStyles} ${variantStyles} ${className}`;
 
