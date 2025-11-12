@@ -1,5 +1,5 @@
-import AboutHead from "../Pages/AboutPages/AboutHead";
-import AboutProcess from "../Pages/AboutPages/AboutProcess";
+import AboutHead from "../pages/aboutpages/abouthead";
+import AboutProcess from "../pages/aboutpages/aboutprocess";
 import HeaderSection from "../customComponents/headerSection";
 import CTA from "../customComponents/cta";
 

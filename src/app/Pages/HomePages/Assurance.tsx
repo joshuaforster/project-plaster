@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Button from '@/app/customComponents/buttons';
-import { images } from '@/app/Data/images';
+import { images } from '@/app/data/images';
 
 const features = [
   { name: 'Full preparation', description: 'We protect surfaces, mask edges, and leave every room spotless.' },

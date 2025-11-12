@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { services } from '../Data/serviceData';
+import { services } from '../data/serviceData';
 
 // Helper to generate clean slugs
 const slugify = (text: string) =>

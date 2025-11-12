@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Button from '../../customComponents/buttons';
 import Image from 'next/image';
-import { images } from '@/app/Data/images';
+import { images } from '@/app/data/images';
 
 const selectedImages = images.slice(0, 3);
 

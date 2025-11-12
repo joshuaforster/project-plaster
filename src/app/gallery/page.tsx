@@ -1,7 +1,7 @@
 'use client'
 
 import ImageGallery from '../customComponents/galleryComponents/imageGallery';
-import { images } from '../Data/images';
+import { images } from '../data/images';
 
 
 export default function Gallery() {

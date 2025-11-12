@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Button from '@/app/customComponents/buttons';
-import { images } from '@/app/Data/images';
+import { images } from '@/app/data/images';
 import Image from 'next/image';
 
 export default function Hero() {

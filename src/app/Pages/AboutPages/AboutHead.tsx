@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { images } from "@/app/Data/images";
+import { images } from "@/app/data/images";
 
 export default function AboutHead() {
   return (

@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, ReactNode } from 'react';
-import { projects } from '../Data/projectsData';
+import { projects } from '../data/projectsData';
 
 interface ProjectsProviderProps {
   children: ReactNode;
