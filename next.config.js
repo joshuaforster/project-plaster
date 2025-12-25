@@ -1,10 +1,11 @@
-import withMDX from '@next/mdx';
+/* eslint-disable @typescript-eslint/no-require-imports */
+
+const withMDX = require("@next/mdx");
 
 const mdxConfig = withMDX({
-  extension: /\.mdx?$/,
+  extension: /\.mdx?$/
 });
 
-export default mdxConfig({
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  // your other config here
+module.exports = mdxConfig({
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"]
 });
