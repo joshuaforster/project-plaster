@@ -2,11 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { services } from '../data/serviceData';
 
-// Helper to generate clean slugs
-const slugify = (text: string) =>
-  text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
 
 const navigation = {
   nav: [
@@ -22,12 +19,6 @@ const navigation = {
     { name: 'Call Jack on 07946 057841', href: 'tel:07946057841', ariaLabel: 'Call Jack on 07946 057841' },
     { name: 'Email jack@projectplaster.com', href: 'mailto:jack@projectplaster.com', ariaLabel: 'Email Jack at projectplaster.com' },
   ],
-
-  services: services.map(service => ({
-    name: `${service.title.charAt(0).toUpperCase() + service.title.slice(1).toLowerCase()}`,
-    href: `/services/${slugify(service.title)}`,
-    ariaLabel: `Learn more about ${service.title}`,
-  })),
 
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy', ariaLabel: 'Read our Privacy Policy' },
@@ -63,25 +54,6 @@ export default function Footer() {
                 </h3>
                 <ul className="mt-6 space-y-3">
                   {navigation.nav.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        aria-label={item.ariaLabel}
-                        className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  Services
-                </h3>
-                <ul className="mt-6 space-y-3">
-                  {navigation.services.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}

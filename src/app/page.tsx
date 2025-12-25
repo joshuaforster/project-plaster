@@ -1,8 +1,8 @@
-import Hero from "./pages/homepages/hero";
-import Steps from "./pages/homepages/steps";
-import Assurance from "./pages/homepages/assurance";
-import Location from "./pages/homepages/location";
-import HomeGallery from "./pages/homepages/homegallery";
+import Hero from "./Pages/HomePages/Hero";
+import Steps from "./Pages/HomePages/steps";
+import Assurance from "./Pages/HomePages/Assurance";
+import Location from "./Pages/HomePages/Location";
+import HomeGallery from "./Pages/HomePages/homegallery";
 
 export default function Home() {
   return (
@@ -15,4 +15,3 @@ export default function Home() {
    </div>
   );
 }
-
