@@ -22,8 +22,8 @@ export default function Header() {
   const handleLinkClick = () => setMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-black text-[#EDEDED]">
-      <nav className="px-4 lg:px-6">
+    <header className="sticky top-0 z-50 bg-[#212F41] text-[#EDEDED]">
+      <nav className="px-4 py-2 lg:px-6">
         <div className="flex items-center justify-between mx-auto max-w-screen-xl">
           
           {/* LOGO */}
@@ -33,11 +33,11 @@ export default function Header() {
             onClick={handleLinkClick}
           >
             <Image
-              src="/images/project-plaster.webp"
+              src="/images/FINAL LOGO.png"
               width={150}
               height={60}
               alt="Project Plaster"
-              className="h-8 w-auto sm:h-10 lg:h-30"
+              className="w-auto 20"
               priority
             />
           </Link>

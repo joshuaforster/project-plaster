@@ -62,7 +62,7 @@ export default function Hero() {
               paragraphInView ? 'animate-slideInLeft' : 'opacity-0'
             }`}
           >
-            Project Plaster — Norwich, Norfolk & Suffolk
+            Plastering Services In Norwich, Norfolk & Suffolk
           </p>
 
           {/* Main Heading */}
@@ -72,8 +72,8 @@ export default function Hero() {
               headerInView ? 'animate-slideInRight' : 'opacity-0'
             }`}
           >
-            <span className="text-[#EDEDED]">Smooth finish.</span>{' '}
-            <span className="text-[#D7BFA4]">Done properly.</span>
+            <span className="text-[#EDEDED]">We’ve got you and your</span>{' '}
+            <span className="text-[#D7BFA4]">walls covered.</span>
           </h1>
 
           {/* Description */}
