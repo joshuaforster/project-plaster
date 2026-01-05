@@ -140,8 +140,8 @@ export default function Contact() {
               <div className="mt-16 space-y-4">
                 <div>
                   <span className="font-semibold">Phone:</span>{" "}
-                  <a href="tel:07700123456" className="hover:text-[#D7BFA4]">
-                    07700 123456
+                  <a href="tel:07946057841" className="hover:text-[#D7BFA4]">
+                    07946 057841
                   </a>
                 </div>
                 <div>
