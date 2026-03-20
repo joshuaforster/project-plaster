@@ -3,9 +3,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
+
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [submitError, setSubmitError] = useState("");
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Fade-in on scroll
@@ -20,6 +24,48 @@ export default function Contact() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        payload.append(key, value);
+      }
+    });
+
+    setSubmitStatus("submitting");
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: payload.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to submit your message. Please call or email us directly.");
+      }
+
+      setSubmitStatus("success");
+      form.reset();
+      setIsChecked(false);
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to submit your message. Please call or email us directly."
+      );
+    }
+  };
 
   return (
     <div className="relative bg-white text-[#1A1F24]">
@@ -57,9 +103,7 @@ export default function Contact() {
               <form
                 name="contact"
                 method="POST"
-                action="/contact-success"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
                 className="space-y-6"
               >
                 <input type="hidden" name="form-name" value="contact" />
@@ -137,12 +181,22 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  disabled={!isChecked}
+                  disabled={!isChecked || submitStatus === "submitting"}
                   className="w-full bg-[#D7BFA4] text-[#1A1F24] py-2.5 font-semibold transition-colors hover:bg-[#C5AB8E] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send Message
+                  {submitStatus === "submitting" ? "Sending..." : "Send Message"}
                 </button>
               </form>
+              <div aria-live="polite" className="mt-4 text-sm">
+                {submitStatus === "success" && (
+                  <p className="text-green-700">
+                    Thanks. Your message has been sent and we will be in touch soon.
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-700">{submitError}</p>
+                )}
+              </div>
 
               {/* CONTACT INFO */}
               <div className="mt-16 space-y-4">

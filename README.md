@@ -29,12 +29,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Netlify Forms Setup
 
-The contact form is configured for native Netlify form handling:
+This project uses the Next.js Runtime v5-compatible Netlify Forms setup:
 
-- `name="contact"`
-- `data-netlify="true"`
-- `<input type="hidden" name="form-name" value="contact" />`
-- `netlify-honeypot="bot-field"`
+- Static form definition file: `public/__forms.html`
+- Runtime submit from React form: `POST /__forms.html` using AJAX
+- Form name: `contact`
+- Honeypot field: `bot-field`
 
 Deployment checklist:
 
