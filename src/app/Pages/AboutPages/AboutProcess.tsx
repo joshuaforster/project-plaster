@@ -1,8 +1,5 @@
-'use client';
-
-import React from "react";
 import Image from "next/image";
-import { images } from "@/app/Data/images";
+import { galleryImages } from "@/app/Data/images";
 
 export default function AboutProcess() {
   const process = [
@@ -12,7 +9,7 @@ export default function AboutProcess() {
         "Send photos or a short video of the area — or we can visit if needed.",
         "You’ll get an honest price upfront — no inflated day rates, no nonsense.",
       ],
-      image: images[0],
+      image: galleryImages[0],
     },
     {
       title: "Work Carried Out",
@@ -20,7 +17,7 @@ export default function AboutProcess() {
         "We protect your space, get the prep right, and leave a smooth, clean finish ready for paint.",
         "Reliable, tidy, and on time — we treat your home like our own.",
       ],
-      image: images[1],
+      image: galleryImages[1],
     },
   ];
 
@@ -34,8 +31,8 @@ export default function AboutProcess() {
             {/* IMAGE */}
             <div className="relative w-full h-72 md:h-80 lg:h-[420px] overflow-hidden shadow-lg ring-1 ring-[#D7BFA4]/50">
               <Image
-                src={step.image}
-                alt={step.title}
+                src={step.image.src}
+                alt={step.image.alt}
                 fill
                 className="object-cover"
                 priority={idx === 0}

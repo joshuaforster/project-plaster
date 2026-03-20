@@ -8,7 +8,7 @@ export default function DoubleReview({nameOne, textOne, nameTwo, textTwo}: {name
             <figure className="mt-10 flex flex-auto flex-col justify-between">
               <blockquote className="text-md text-gray-900" style={{ lineHeight: '1.5' }}>
                 <p>
-                  &ldquo;{textOne}&ldquo;
+                  &ldquo;{textOne}&rdquo;
                 </p>
               </blockquote>
               <figcaption className="mt-10 flex items-center gap-x-6">
@@ -22,7 +22,7 @@ export default function DoubleReview({nameOne, textOne, nameTwo, textTwo}: {name
             <figure className="mt-10 flex flex-auto flex-col justify-between">
               <blockquote className="text-md text-gray-900" style={{ lineHeight: '1.5' }}>
                 <p>
-                    &ldquo;{textTwo}&ldquo;
+                    &ldquo;{textTwo}&rdquo;
                 </p>
               </blockquote>
               <figcaption className="mt-10 flex items-center gap-x-6">
@@ -37,4 +37,3 @@ export default function DoubleReview({nameOne, textOne, nameTwo, textTwo}: {name
     </section>
   )
 }
-

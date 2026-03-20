@@ -43,6 +43,7 @@ const PlusIcon: React.FC<{ className?: string }> = ({ className }) => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       d="M12 5v14m-7-7h14"
@@ -60,6 +61,7 @@ const MinusIcon: React.FC<{ className?: string }> = ({ className }) => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       d="M5 12h14"
@@ -92,7 +94,7 @@ export default function FAQ() {
         if (top < windowHeight * 0.75) setIsVisible(true);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -111,10 +113,14 @@ export default function FAQ() {
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 border-t border-gray-200 pt-10">
           {faqs.map((faq, index) => (
-            <div key={index} className="pb-6 border-b border-gray-200">
+            <div key={faq.title} className="pb-6 border-b border-gray-200">
               <button
+                type="button"
                 onClick={() => toggleFAQ(index)}
-                className="flex items-center w-full text-left text-lg font-medium text-[#1F2937] hover:text-[#C58C49] transition-colors"
+                aria-expanded={activeIndices.includes(index)}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-question-${index}`}
+                className="flex w-full items-center text-left text-lg font-medium text-[#1F2937] transition-colors hover:text-[#C58C49] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
               >
                 {activeIndices.includes(index) ? (
                   <MinusIcon className="mr-3 w-5 h-5 text-[#C58C49]" />
@@ -125,9 +131,15 @@ export default function FAQ() {
               </button>
 
               {activeIndices.includes(index) && (
-                <p className="mt-3 text-[#3B464B] text-base leading-relaxed">
-                  {faq.answer}
-                </p>
+                <div
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${index}`}
+                >
+                  <p className="mt-3 text-[#3B464B] text-base leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
               )}
             </div>
           ))}

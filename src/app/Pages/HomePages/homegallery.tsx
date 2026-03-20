@@ -3,9 +3,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Button from '../../customComponents/buttons';
 import Image from 'next/image';
-import { images } from '@/app/Data/images';
+import { galleryImages } from '@/app/Data/images';
 
-const selectedImages = images.slice(0, 3);
+const selectedImages = galleryImages.slice(0, 3);
 
 export default function HomeGallery() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +17,7 @@ export default function HomeGallery() {
       const { top } = sectionRef.current.getBoundingClientRect();
       if (top < window.innerHeight * 0.75) setIsVisible(true);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -45,12 +45,12 @@ export default function HomeGallery() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
           {selectedImages.map((image, index) => (
             <div
-              key={index}
+              key={image.src}
               className="relative w-full h-[450px] overflow-hidden border border-[#E5E5E5] shadow-md group"
             >
               <Image
-                src={image}
-                alt={`Project Plaster gallery image ${index + 1}`}
+                src={image.src}
+                alt={image.alt}
                 fill
                 className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:brightness-90"
                 priority={index === 0}

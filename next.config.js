@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+const path = require("path");
 
 const withMDX = require("@next/mdx");
 
 const mdxConfig = withMDX({
-  extension: /\.mdx?$/
+  extension: /\.mdx?$/,
 });
 
 module.exports = mdxConfig({
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"]
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  turbopack: {
+    root: path.join(__dirname),
+  },
 });

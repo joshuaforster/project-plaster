@@ -1,8 +1,6 @@
-'use client';
-
 import Image from 'next/image';
 import Button from '@/app/customComponents/buttons';
-import { images } from '@/app/Data/images';
+import { galleryImages } from '@/app/Data/images';
 
 const features = [
   { name: 'Full preparation', description: 'We protect surfaces, mask edges, and leave every room spotless.' },
@@ -53,8 +51,8 @@ export default function Assurance() {
           {/* --- IMAGE SECTION --- */}
           <div className="relative w-full h-80 sm:h-[500px] overflow-hidden shadow-xl ring-1 ring-black/40">
             <Image
-              src={images[0]}
-              alt="Plastering work example"
+              src={galleryImages[0].src}
+              alt={galleryImages[0].alt}
               fill
               className="object-cover"
               priority

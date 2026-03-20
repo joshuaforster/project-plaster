@@ -6,7 +6,6 @@ import Image from "next/image";
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Fade-in on scroll
@@ -17,18 +16,10 @@ export default function Contact() {
         if (top < window.innerHeight * 0.75) setIsVisible(true);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setFormSubmitted(true);
-    event.currentTarget.reset();
-    setIsChecked(false);
-  };
 
   return (
     <div className="relative bg-white text-[#1A1F24]">
@@ -63,7 +54,28 @@ export default function Contact() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
             >
-              <form name="contact" onSubmit={handleSubmit} className="space-y-6">
+              <form
+                name="contact"
+                method="POST"
+                action="/contact-success"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                className="space-y-6"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <div className="hidden">
+                  <label htmlFor="bot-field">
+                    Don&apos;t fill this out if you&apos;re human:
+                    <input
+                      id="bot-field"
+                      name="bot-field"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </label>
+                </div>
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold">
                     Name <span className="text-red-500">*</span>
@@ -73,6 +85,7 @@ export default function Contact() {
                     id="name"
                     name="name"
                     required
+                    autoComplete="name"
                     className="mt-2 block w-full border border-gray-300 px-3 py-2 text-[#1A1F24] focus:ring-2 focus:ring-inset focus:ring-[#D7BFA4]"
                   />
                 </div>
@@ -86,6 +99,7 @@ export default function Contact() {
                     id="email"
                     name="email"
                     required
+                    autoComplete="email"
                     className="mt-2 block w-full border border-gray-300 px-3 py-2 text-[#1A1F24] focus:ring-2 focus:ring-inset focus:ring-[#D7BFA4]"
                   />
                 </div>
@@ -99,6 +113,7 @@ export default function Contact() {
                     name="message"
                     rows={4}
                     required
+                    minLength={15}
                     className="mt-2 block w-full border border-gray-300 px-3 py-2 text-[#1A1F24] focus:ring-2 focus:ring-inset focus:ring-[#D7BFA4]"
                   />
                 </div>
@@ -110,7 +125,7 @@ export default function Contact() {
                       name="consent"
                       type="checkbox"
                       checked={isChecked}
-                      onChange={() => setIsChecked(!isChecked)}
+                      onChange={() => setIsChecked((prev) => !prev)}
                       required
                       className="h-4 w-4 border-gray-300 text-[#D7BFA4] focus:ring-[#D7BFA4]"
                     />
@@ -123,18 +138,11 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={!isChecked}
-                  className="w-full bg-[#D7BFA4] text-[#1A1F24] py-2.5 font-semibold hover:bg-[#C5AB8E] transition-colors"
+                  className="w-full bg-[#D7BFA4] text-[#1A1F24] py-2.5 font-semibold transition-colors hover:bg-[#C5AB8E] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   Send Message
                 </button>
               </form>
-
-              {/* SUCCESS MESSAGE */}
-              {formSubmitted && (
-                <p className="mt-4 text-green-600 text-sm">
-                  Thanks! Your message has been sent successfully.
-                </p>
-              )}
 
               {/* CONTACT INFO */}
               <div className="mt-16 space-y-4">
@@ -171,6 +179,7 @@ export default function Contact() {
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
               </div>

@@ -1,8 +1,15 @@
- "use client";
-
-import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import CTA from "../customComponents/cta";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Fresh plastering, re-skimming, plaster repairs and preparation services across Norwich, Norfolk and Suffolk.",
+  alternates: {
+    canonical: "/services",
+  },
+};
 
 const services = [
   {
@@ -11,7 +18,7 @@ const services = [
     description: "Brand-new plastering for extensions, renovations and new builds.",
     content: "Smooth, clean, ready-to-paint plaster finish.",
     image: "/images/jack1.webp",
-    keywords: ["fresh plastering", "new build plastering", "plastering Norwich"],
+    benefits: ["Extensions and renovations", "Paint-ready finish", "Clean and tidy handover"],
   },
   {
     id: 2,
@@ -19,7 +26,7 @@ const services = [
     description: "Over old walls, artex or existing plaster.",
     content: "Modern smooth finish without ripping everything out.",
     image: "/images/jack2.webp",
-    keywords: ["re-skimming walls", "plaster skim coat", "remove artex Norfolk"],
+    benefits: ["Artex and textured wall coverage", "Minimal disruption", "Long-lasting smooth surface"],
   },
   {
     id: 3,
@@ -27,7 +34,7 @@ const services = [
     description: "Cracks, leaks, patching, and insurance repairs.",
     content: "Make damaged walls look new again.",
     image: "/images/jack3.webp",
-    keywords: ["plaster repair Norwich", "hole patching", "ceiling repair Suffolk"],
+    benefits: ["Cracks and patch repairs", "Ceiling and wall restoration", "Blended finish"],
   },
   {
     id: 4,
@@ -35,7 +42,7 @@ const services = [
     description: "We handle everything so you don’t have to.",
     content: "Masking, protection, bonding and priming done properly.",
     image: "/images/jack4.webp",
-    keywords: ["plaster preparation", "surface bonding", "plaster priming Norfolk"],
+    benefits: ["Surface protection", "Bonding and priming", "Clean working process"],
   },
 ];
 
@@ -87,10 +94,10 @@ export default function ServicesPage() {
               <p className="text-base text-[#3B464B] leading-relaxed">
                 {service.content}
               </p>
-              {service.keywords && (
+              {service.benefits && (
                 <ul className="mt-6 list-disc pl-5 text-left text-[#3B464B]">
-                  {service.keywords.map((keyword, i) => (
-                    <li key={i}>{keyword}</li>
+                  {service.benefits.map((benefit) => (
+                    <li key={benefit}>{benefit}</li>
                   ))}
                 </ul>
               )}

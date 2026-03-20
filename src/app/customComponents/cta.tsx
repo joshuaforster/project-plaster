@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CTA() {
   return (
-    <div className="bg-[#F5F5F4]">
+    <section className="bg-[#F5F5F4]" aria-labelledby="cta-heading">
       <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
         <div
           className="relative isolate overflow-hidden px-6 py-24 text-center shadow-2xl sm:px-16 sm:rounded-none"
@@ -14,7 +14,10 @@ export default function CTA() {
         >
           <div className="absolute inset-0 bg-black/70"></div>
 
-          <h2 className="relative mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight">
+          <h2
+            id="cta-heading"
+            className="relative mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight"
+          >
             Need a plasterer?
           </h2>
 
@@ -35,11 +38,11 @@ export default function CTA() {
               href="/about"
               className="text-sm font-semibold leading-6 text-white hover:text-gray-300"
             >
-              About us →
+              About us <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

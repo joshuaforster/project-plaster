@@ -46,7 +46,7 @@ const Steps: React.FC = () => {
       if (top < window.innerHeight * 0.75) setIsVisible(true);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // run once on load
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

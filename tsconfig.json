@@ -33,10 +33,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.css",
-    "**/*.scss",
     ".next/types/**/*.ts",
-    "src/app/blog/[slug]/page.jsx",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

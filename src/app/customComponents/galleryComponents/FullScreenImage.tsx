@@ -1,10 +1,13 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image'; // Import Image from next/image
+import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 interface FullscreenImageProps {
   imageUrl: string;
+  altText: string;
+  currentIndex: number;
+  totalImages: number;
   onPrevious: () => void;
   onNext: () => void;
   onClose: () => void;
@@ -28,7 +31,30 @@ const ArrowRightIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const FullscreenImage: React.FC<FullscreenImageProps> = ({ imageUrl, onPrevious, onNext, onClose }) => {
+const FullscreenImage: React.FC<FullscreenImageProps> = ({
+  imageUrl,
+  altText,
+  currentIndex,
+  totalImages,
+  onPrevious,
+  onNext,
+  onClose,
+}) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+      if (event.key === 'ArrowLeft') onPrevious();
+      if (event.key === 'ArrowRight') onNext();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, onNext, onPrevious]);
+
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -36,38 +62,52 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({ imageUrl, onPrevious,
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999]" onClick={handleClickOutside}>
-      <div className="relative max-h-[90vh] w-auto object-contain cursor-pointer">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90"
+      onClick={handleClickOutside}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Gallery image ${currentIndex} of ${totalImages}`}
+    >
+      <div className="relative h-[80vh] w-[90vw] max-w-6xl">
         <Image
           src={imageUrl}
-          alt="Fullscreen Image"
-          layout="intrinsic" // Automatically adjusts the size based on the image dimensions
-          width={1200} // Set a default width
-          height={800} // Set a default height
+          alt={altText}
+          fill
+          sizes="90vw"
+          className="object-contain"
+          priority
           onClick={(e) => e.stopPropagation()}
         />
       </div>
       <button
-        className="absolute top-5 right-5 text-white text-3xl"
+        ref={closeButtonRef}
+        type="button"
+        className="absolute top-5 right-5 rounded-full bg-black/60 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
         onClick={onClose}
+        aria-label="Close full-screen image"
       >
         <CloseIcon className="w-8 h-8" />
       </button>
       <button
-        className="absolute left-5 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-2xl p-2 rounded-full"
+        type="button"
+        className="absolute left-5 top-1/2 transform -translate-y-1/2 rounded-full bg-black/70 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
         onClick={(e) => {
           e.stopPropagation();
           onPrevious();
         }}
+        aria-label="View previous image"
       >
         <ArrowLeftIcon className="w-8 h-8" />
       </button>
       <button
-        className="absolute right-5 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-2xl p-2 rounded-full"
+        type="button"
+        className="absolute right-5 top-1/2 transform -translate-y-1/2 rounded-full bg-black/70 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
         onClick={(e) => {
           e.stopPropagation();
           onNext();
         }}
+        aria-label="View next image"
       >
         <ArrowRightIcon className="w-8 h-8" />
       </button>

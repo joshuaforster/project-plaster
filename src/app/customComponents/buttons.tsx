@@ -10,6 +10,7 @@ interface ButtonProps {
   to?: string;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
+  ariaLabel?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   to,
   className = '',
   type = 'button',
+  ariaLabel,
 }) => {
   const baseStyles =
     'px-6 py-3 font-semibold uppercase tracking-wide transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2';
@@ -36,14 +38,14 @@ const Button: React.FC<ButtonProps> = ({
 
   if (to) {
     return (
-      <Link href={to} className={buttonClasses}>
+      <Link href={to} className={buttonClasses} aria-label={ariaLabel}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={buttonClasses} onClick={onClick} type={type}>
+    <button className={buttonClasses} onClick={onClick} type={type} aria-label={ariaLabel}>
       {children}
     </button>
   );

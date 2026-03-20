@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image'; // Import Image from next/image
+import Image from 'next/image';
 
 interface HeaderSectionProps {
   image: string;
@@ -11,9 +11,13 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ image, title }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       setIsVisible(true);
-    }, 100); // slight delay for smoother animation
+    }, 100);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
@@ -21,10 +25,10 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ image, title }) => {
       <Image
         src={image}
         alt={title}
+        fill
+        sizes="100vw"
         className="w-full h-96 object-cover"
-        layout="fill" // Ensures the image covers the container
-        objectFit="cover" // Ensures the image maintains aspect ratio while covering the container
-        priority // Optimizes the image for LCP
+        priority
       />
       <div className="absolute inset-0 bg-black opacity-20"></div>
       <div className="absolute inset-0 flex items-center justify-center">

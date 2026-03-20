@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css"
+import "./globals.css";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
 
+const SITE_URL = "https://projectplaster.co.uk";
+const SITE_NAME = "Project Plaster";
+const DEFAULT_DESCRIPTION =
+  "Professional plastering, re-skimming and repair services across Norwich, Norfolk and Suffolk. Clean finish, no shortcuts.";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,9 +20,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Project Plaster | Professional Plastering in Norwich, Norfolk & Suffolk",
-  description:
-    "Professional plastering, re-skimming and repair services across Norwich, Norfolk & Suffolk. Clean finish, no shortcuts. Get a free quote today.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Project Plaster | Professional Plastering in Norwich, Norfolk and Suffolk",
+    template: "%s | Project Plaster",
+  },
+  description: DEFAULT_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "plastering Norwich",
     "plasterer Norfolk",
@@ -29,27 +39,34 @@ export const metadata: Metadata = {
     "Project Plaster Norwich",
   ],
   openGraph: {
-    title: "Project Plaster | Professional Plastering in Norwich, Norfolk & Suffolk",
-    description:
-      "Fresh plastering, re-skimming and repairs. Clean finish, done properly.",
-    url: "https://projectplaster.co.uk",
-    siteName: "Project Plaster",
+    title: "Project Plaster | Professional Plastering in Norwich, Norfolk and Suffolk",
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_GB",
     type: "website",
     images: [
       {
-        url: "/images/og-image.webp",
+        url: "/images/project-plaster.webp",
         width: 1200,
         height: 630,
-        alt: "Plastering project finish",
+        alt: "Project Plaster branding",
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Project Plaster | Professional Plastering in Norwich, Norfolk and Suffolk",
+    description: DEFAULT_DESCRIPTION,
+    images: ["/images/project-plaster.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
-    icon: [
-      { url: "/images/Favicon/projectplaster.png" },
-      { url: "/images/Favicon/projectplaster.png", type: "image/png", sizes: "32x32" },
-    ],
-    apple: "/images/Favicon/projectplaster.png",
+    icon: [{ url: "/images/project-plaster.webp", type: "image/webp" }],
+    apple: "/images/project-plaster.webp",
   },
 };
 
@@ -60,14 +77,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Header />
-        {children}
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
-

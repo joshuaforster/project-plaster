@@ -1,8 +1,5 @@
-'use client';
-
-import React from "react";
 import Image from "next/image";
-import { images } from "@/app/Data/images";
+import { galleryImages } from "@/app/Data/images";
 
 export default function AboutHead() {
   return (
@@ -12,9 +9,9 @@ export default function AboutHead() {
 
           {/* --- TEXT SIDE --- */}
           <div className="text-[#1A1F24] flex flex-col justify-center">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight">
+            <h2 className="text-4xl font-bold leading-tight tracking-tight">
               About Project Plaster
-            </h1>
+            </h2>
 
             <p className="mt-6 text-lg leading-relaxed max-w-lg">
               We’re a small plastering business based in Norwich, covering Norfolk & Suffolk.
@@ -34,8 +31,8 @@ export default function AboutHead() {
           {/* --- IMAGE SIDE --- */}
           <div className="relative h-[450px] w-full overflow-hidden shadow-md ring-1 ring-[#D7BFA4]/50">
             <Image
-              src={images[1]}
-              alt="Fresh plaster finish"
+              src={galleryImages[1].src}
+              alt={galleryImages[1].alt}
               fill
               className="object-cover"
               priority
