@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Button from "./buttons";
 
 export default function CTA() {
   return (
@@ -27,19 +27,13 @@ export default function CTA() {
           </p>
 
           <div className="relative mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              href="/contact"
-              className="bg-white px-6 py-3 text-sm font-semibold text-[#1F2937] shadow-sm hover:bg-gray-100"
-            >
+            <Button to="/contact" variant="primary" size="large">
               Get A Quote
-            </Link>
+            </Button>
 
-            <Link
-              href="/about"
-              className="text-sm font-semibold leading-6 text-white hover:text-gray-300"
-            >
+            <Button to="/about" variant="tertiary" size="large">
               About us <span aria-hidden="true">→</span>
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

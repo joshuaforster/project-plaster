@@ -62,10 +62,10 @@ export default function HomeGallery() {
         {/* Button */}
         <div className="flex justify-center mt-12">
           <Button
-          variant='primary'
+            variant="primary"
             to="/gallery"
             aria-label="View the full plastering gallery"
-            className="bg-[#D7BFA4] text-[#1A1F24] font-semibold text-sm uppercase tracking-wide px-8 py-3 transition-colors duration-300 hover:bg-[#C5AB8E]"
+            size="large"
           >
             View Full Gallery
           </Button>

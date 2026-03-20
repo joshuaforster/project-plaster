@@ -80,17 +80,17 @@ export default function Hero() {
 
           <div className="mt-10 flex items-center gap-x-6">
             <Button
-              variant="tertiary"
+              variant="primary"
+              size="large"
               to="/contact"
-              className="bg-[#D7BFA4] text-[#1A1F24] px-6 py-3 font-semibold hover:bg-[#C5AB8E] transition-colors duration-300"
             >
               Get a Free Quote
             </Button>
             <Button
               variant="tertiary"
+              size="large"
               to="/about"
               ariaLabel="Find out more about Project Plaster"
-              className="text-[#D7BFA4] border border-[#D7BFA4] px-6 py-3 font-semibold hover:bg-[#D7BFA4] hover:text-[#1A1F24] transition-colors duration-300"
             >
               Find Out More <span aria-hidden="true">→</span>
             </Button>

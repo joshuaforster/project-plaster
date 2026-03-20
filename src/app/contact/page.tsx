@@ -208,8 +208,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="font-semibold">Email:</span>{" "}
-                  <a href="mailto:jack@projectplaster.co.uk" className="hover:text-[#D7BFA4]">
-                    jack@projectplaster.co.uk
+                  <a href="mailto:jack@projectplaster.com" className="hover:text-[#D7BFA4]">
+                    jack@projectplaster.com
                   </a>
                 </div>
                 <div>
