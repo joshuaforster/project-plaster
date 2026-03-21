@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect, useState, useRef } from "react";
+import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
 
 interface StepType {
   id: number;
@@ -8,7 +6,7 @@ interface StepType {
   description: string;
 }
 
-const steps: StepType[] = [
+const defaultSteps: StepType[] = [
   {
     id: 1,
     name: "Prep done properly",
@@ -35,42 +33,51 @@ const steps: StepType[] = [
   },
 ];
 
-const Steps: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+interface StepsProps {
+  copy?: CopyPayload;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { top } = sectionRef.current.getBoundingClientRect();
-      if (top < window.innerHeight * 0.75) setIsVisible(true);
-    };
+function mapCmsSteps(copy?: CopyPayload): StepType[] {
+  const steps = getCopyObjectArray(copy, 'steps.items')
+    .map((step, index) => {
+      const name = typeof step.name === 'string' ? step.name.trim() : '';
+      const description = typeof step.description === 'string' ? step.description.trim() : '';
+      if (!name || !description) {
+        return null;
+      }
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once on load
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      return {
+        id: index + 1,
+        name,
+        description,
+      } satisfies StepType;
+    })
+    .filter((step): step is StepType => step !== null);
+
+  return steps.length ? steps : defaultSteps;
+}
+
+const Steps = ({ copy }: StepsProps) => {
+  const steps = mapCmsSteps(copy);
+  const headingLeading = getCopyText(copy, 'steps.headingLeading', 'Quality plastering you can');
+  const headingAccent = getCopyText(copy, 'steps.headingAccent', 'trust');
 
   return (
-    <section ref={sectionRef} className="bg-[#1F2937] font-roboto">
-      <div
-        className={`mx-auto max-w-7xl px-6 py-20 lg:px-8 transition-opacity duration-1000 transform ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
+    <section className="bg-[#1F2937] font-roboto">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="lg:flex lg:items-center lg:justify-between">
           {/* Heading */}
           <div className="max-w-2xl lg:mx-0 lg:max-w-xl">
             <h2 className="text-5xl font-bold leading-[1.4] capitalize text-white">
-              Quality plastering you can{" "}
-              <span className="text-[#D7BFA4]">trust</span>
+              {headingLeading}{" "}
+              <span className="text-[#D7BFA4]">{headingAccent}</span>
             </h2>
           </div>
 
           {/* Steps grid */}
           <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 sm:gap-y-16 lg:mt-0 lg:ml-16 lg:max-w-xl lg:grid-cols-2">
             {steps.map((step) => (
-              <Step key={step.id} step={step} isVisible={isVisible} />
+              <Step key={step.id} step={step} />
             ))}
           </div>
         </div>
@@ -79,18 +86,9 @@ const Steps: React.FC = () => {
   );
 };
 
-interface StepProps {
-  step: StepType;
-  isVisible: boolean;
-}
-
-const Step: React.FC<StepProps> = ({ step, isVisible }) => {
+const Step = ({ step }: { step: StepType }) => {
   return (
-    <dl
-      className={`flex flex-col gap-y-3 border-l border-[#D7BFA4] pl-6 text-white transform transition-transform duration-700 ease-in-out ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      }`}
-    >
+    <dl className="flex flex-col gap-y-3 border-l border-[#D7BFA4] pl-6 text-white">
       <dt className="text-sm leading-6 text-gray-300">{step.description}</dt>
       <dd className="order-first text-3xl text-[#D7BFA4] font-semibold tracking-tight">
         {step.name}

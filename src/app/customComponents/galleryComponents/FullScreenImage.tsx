@@ -8,6 +8,10 @@ interface FullscreenImageProps {
   altText: string;
   currentIndex: number;
   totalImages: number;
+  dialogLabelTemplate?: string;
+  closeImageLabel?: string;
+  prevImageLabel?: string;
+  nextImageLabel?: string;
   onPrevious: () => void;
   onNext: () => void;
   onClose: () => void;
@@ -36,6 +40,10 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({
   altText,
   currentIndex,
   totalImages,
+  dialogLabelTemplate = "Gallery image {current} of {total}",
+  closeImageLabel = "Close full-screen image",
+  prevImageLabel = "View previous image",
+  nextImageLabel = "View next image",
   onPrevious,
   onNext,
   onClose,
@@ -61,13 +69,17 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({
     }
   };
 
+  const dialogLabel = dialogLabelTemplate
+    .replace("{current}", String(currentIndex))
+    .replace("{total}", String(totalImages));
+
   return (
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90"
       onClick={handleClickOutside}
       role="dialog"
       aria-modal="true"
-      aria-label={`Gallery image ${currentIndex} of ${totalImages}`}
+      aria-label={dialogLabel}
     >
       <div className="relative h-[80vh] w-[90vw] max-w-6xl">
         <Image
@@ -85,7 +97,7 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({
         type="button"
         className="absolute top-5 right-5 rounded-full bg-black/60 p-2 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
         onClick={onClose}
-        aria-label="Close full-screen image"
+        aria-label={closeImageLabel}
       >
         <CloseIcon className="w-8 h-8" />
       </button>
@@ -96,7 +108,7 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({
           e.stopPropagation();
           onPrevious();
         }}
-        aria-label="View previous image"
+        aria-label={prevImageLabel}
       >
         <ArrowLeftIcon className="w-8 h-8" />
       </button>
@@ -107,7 +119,7 @@ const FullscreenImage: React.FC<FullscreenImageProps> = ({
           e.stopPropagation();
           onNext();
         }}
-        aria-label="View next image"
+        aria-label={nextImageLabel}
       >
         <ArrowRightIcon className="w-8 h-8" />
       </button>

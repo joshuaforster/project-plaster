@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import CTA from "../customComponents/cta";
+import { getPageContent, getServicesContent } from "@/lib/contentful/queries";
+import { getCopyText } from "@/lib/contentful/copy";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -11,9 +13,18 @@ export const metadata: Metadata = {
   },
 };
 
-const services = [
+interface ServiceItem {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+  benefits: string[];
+}
+
+const defaultServices: ServiceItem[] = [
   {
-    id: 1,
+    id: "fresh-plastering",
     title: "Fresh Plastering",
     description: "Brand-new plastering for extensions, renovations and new builds.",
     content: "Smooth, clean, ready-to-paint plaster finish.",
@@ -21,7 +32,7 @@ const services = [
     benefits: ["Extensions and renovations", "Paint-ready finish", "Clean and tidy handover"],
   },
   {
-    id: 2,
+    id: "re-skimming",
     title: "Re-Skimming",
     description: "Over old walls, artex or existing plaster.",
     content: "Modern smooth finish without ripping everything out.",
@@ -29,7 +40,7 @@ const services = [
     benefits: ["Artex and textured wall coverage", "Minimal disruption", "Long-lasting smooth surface"],
   },
   {
-    id: 3,
+    id: "plaster-repairs",
     title: "Plaster Repairs",
     description: "Cracks, leaks, patching, and insurance repairs.",
     content: "Make damaged walls look new again.",
@@ -37,7 +48,7 @@ const services = [
     benefits: ["Cracks and patch repairs", "Ceiling and wall restoration", "Blended finish"],
   },
   {
-    id: 4,
+    id: "prep-work",
     title: "Prep Work Included",
     description: "We handle everything so you don’t have to.",
     content: "Masking, protection, bonding and priming done properly.",
@@ -46,16 +57,56 @@ const services = [
   },
 ];
 
-export default function ServicesPage() {
+export const revalidate = 300;
+
+function getMergedServices(cmsServices: Awaited<ReturnType<typeof getServicesContent>>): ServiceItem[] {
+  if (!cmsServices.length) {
+    return defaultServices;
+  }
+
+  return cmsServices.map((service, index) => {
+    const fallback = defaultServices[index % defaultServices.length];
+    return {
+      id: service.id,
+      title: service.title,
+      description: service.description,
+      content: service.content || fallback.content,
+      image: service.image || fallback.image,
+      benefits: service.benefits.length ? service.benefits : fallback.benefits,
+    };
+  });
+}
+
+export default async function ServicesPage() {
+  const pageContent = await getPageContent("services");
+  const servicesCopy = pageContent?.copy;
+  const cmsServices = await getServicesContent();
+  const services = getMergedServices(cmsServices);
+  const heading = getCopyText(
+    servicesCopy,
+    "hero.heading",
+    "Plastering Services in Norwich, Norfolk & Suffolk",
+  );
+  const intro = getCopyText(
+    servicesCopy,
+    "hero.intro",
+    "We provide plastering, re-skimming, repairs and full preparation for homes and businesses.",
+  );
+  const imageAltSuffix = getCopyText(
+    servicesCopy,
+    "serviceImageAltSuffix",
+    "plastering in Norwich",
+  );
+
   return (
     <main className="font-roboto">
       {/* Main SEO Header */}
       <section className="bg-white py-20 text-center">
         <h1 className="text-4xl font-bold text-[#1F2937]">
-          Plastering Services in Norwich, Norfolk & Suffolk
+          {heading}
         </h1>
         <p className="mt-4 text-lg text-[#3B464B] max-w-2xl mx-auto">
-          Expert plastering, re-skimming, repairs and full prep work — done properly, no shortcuts.
+          {intro}
         </p>
       </section>
 
@@ -76,7 +127,7 @@ export default function ServicesPage() {
             <div className="relative w-full lg:w-1/2 h-[420px] overflow-hidden shadow-xl flex justify-center items-center">
               <Image
                 src={service.image}
-                alt={`${service.title} plastering in Norwich`}
+                alt={`${service.title} ${imageAltSuffix}`}
                 fill
                 className="object-cover"
                 priority={index === 0}
@@ -108,7 +159,7 @@ export default function ServicesPage() {
 
 
       {/* CTA */}
-      <CTA />
+      <CTA copy={servicesCopy} copyPath="cta" />
     </main>
   );
 }

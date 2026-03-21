@@ -1,6 +1,23 @@
 import Button from "./buttons";
+import { getCopyText, type CopyPayload } from "@/lib/contentful/copy";
 
-export default function CTA() {
+interface CTAProps {
+  copy?: CopyPayload;
+  copyPath?: string;
+}
+
+export default function CTA({ copy, copyPath = "cta" }: CTAProps) {
+  const heading = getCopyText(copy, `${copyPath}.heading`, "Need plastering work?");
+  const body = getCopyText(
+    copy,
+    `${copyPath}.body`,
+    "Send a few photos and we will get back to you with a quote. We cover Norwich, Norfolk and Suffolk.",
+  );
+  const primaryLabel = getCopyText(copy, `${copyPath}.primaryLabel`, "Get A Quote");
+  const primaryHref = getCopyText(copy, `${copyPath}.primaryHref`, "/contact");
+  const secondaryLabel = getCopyText(copy, `${copyPath}.secondaryLabel`, "About us");
+  const secondaryHref = getCopyText(copy, `${copyPath}.secondaryHref`, "/about");
+
   return (
     <section className="bg-[#F5F5F4]" aria-labelledby="cta-heading">
       <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
@@ -18,21 +35,20 @@ export default function CTA() {
             id="cta-heading"
             className="relative mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight"
           >
-            Need a plasterer?
+            {heading}
           </h2>
 
           <p className="relative mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white">
-            Send us a couple of photos and we’ll get back to you with a quote.
-            Covering Norwich, Norfolk & Suffolk.
+            {body}
           </p>
 
           <div className="relative mt-10 flex items-center justify-center gap-x-6">
-            <Button to="/contact" variant="primary" size="large">
-              Get A Quote
+            <Button to={primaryHref} variant="primary" size="large">
+              {primaryLabel}
             </Button>
 
-            <Button to="/about" variant="tertiary" size="large">
-              About us <span aria-hidden="true">→</span>
+            <Button to={secondaryHref} variant="tertiary" size="large">
+              {secondaryLabel} <span aria-hidden="true">→</span>
             </Button>
           </div>
         </div>

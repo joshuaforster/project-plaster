@@ -9,6 +9,18 @@ const mdxConfig = withMDX({
 
 module.exports = mdxConfig({
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.ctfassets.net",
+      },
+      {
+        protocol: "https",
+        hostname: "images.eu.ctfassets.net",
+      },
+    ],
+  },
   turbopack: {
     root: path.join(__dirname),
   },

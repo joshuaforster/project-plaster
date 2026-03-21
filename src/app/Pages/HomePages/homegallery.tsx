@@ -1,47 +1,36 @@
-'use client';
-
-import React, { useEffect, useState, useRef } from 'react';
 import Button from '../../customComponents/buttons';
 import Image from 'next/image';
 import { galleryImages } from '@/app/Data/images';
+import { getCopyText, type CopyPayload } from '@/lib/contentful/copy';
 
 const selectedImages = galleryImages.slice(0, 3);
 
-export default function HomeGallery() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+interface HomeGalleryProps {
+  copy?: CopyPayload;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { top } = sectionRef.current.getBoundingClientRect();
-      if (top < window.innerHeight * 0.75) setIsVisible(true);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export default function HomeGallery({ copy }: HomeGalleryProps) {
+  const heading = getCopyText(copy, 'galleryPreview.heading', 'Recent Work');
+  const intro = getCopyText(
+    copy,
+    'galleryPreview.intro',
+    'A few examples of plastering projects completed across Norfolk and Suffolk.',
+  );
+  const ctaLabel = getCopyText(copy, 'galleryPreview.ctaLabel', 'View Full Gallery');
+  const ctaAria = getCopyText(copy, 'galleryPreview.ctaAria', 'View the full plastering gallery');
 
   return (
-    <section
-      ref={sectionRef}
-      className={`py-24 bg-white transition-all duration-1000 transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}
-    >
+    <section className="bg-white py-24">
       <div className="px-6 lg:px-8 mx-auto max-w-7xl">
-        
-        {/* Heading */}
         <div className="text-center">
           <h2 className="text-4xl font-bold text-[#1A1F24]">
-            Recent Work
+            {heading}
           </h2>
           <p className="mt-4 text-lg text-[#1A1F24]/90 max-w-2xl mx-auto">
-            A few examples of plastering projects completed across Norfolk and Suffolk.
+            {intro}
           </p>
         </div>
 
-        {/* Image Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
           {selectedImages.map((image, index) => (
             <div
@@ -59,15 +48,14 @@ export default function HomeGallery() {
           ))}
         </div>
 
-        {/* Button */}
         <div className="flex justify-center mt-12">
           <Button
             variant="primary"
             to="/gallery"
-            aria-label="View the full plastering gallery"
+            ariaLabel={ctaAria}
             size="large"
           >
-            View Full Gallery
+            {ctaLabel}
           </Button>
         </div>
       </div>

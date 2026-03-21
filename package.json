@@ -12,12 +12,12 @@
   },
   "engines": {
     "node": ">=20.9.0"
-
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.3",
     "autoprefixer": "^10.4.21",
+    "contentful": "^11.11.0",
     "gray-matter": "^4.0.3",
     "next": "^16.1.1",
     "next-mdx-remote": "^5.0.0",

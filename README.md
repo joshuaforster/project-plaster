@@ -18,6 +18,69 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Contentful Setup
+
+This project is wired so all page copy can be managed in Contentful while keeping hardcoded fallbacks.
+
+Core integration files:
+
+- `src/lib/contentful/client.ts` - server-only Contentful client
+- `src/lib/contentful/queries.ts` - server-side query helpers
+- `src/lib/contentful/copy.ts` - copy-path helpers for server/client components
+
+Required environment variables:
+
+```bash
+CONTENTFUL_SPACE_ID=
+CONTENTFUL_DELIVERY_ACCESS_TOKEN=
+```
+
+Optional environment variables:
+
+```bash
+CONTENTFUL_ENVIRONMENT=master
+CONTENTFUL_PREVIEW_ACCESS_TOKEN=
+CONTENTFUL_PAGE_CONTENT_TYPE=pageContent
+CONTENTFUL_SERVICE_CONTENT_TYPE=service
+CONTENTFUL_FAQ_CONTENT_TYPE=faq
+```
+
+Recommended content model:
+
+- `pageContent` (single entry per page slug):
+  - `slug` (Short text, unique)
+  - `seoTitle` (Short text, optional)
+  - `seoDescription`
+  - `copy` (Object / JSON) - nested page keys used by components
+- `service` (repeatable):
+  - `title`
+  - `description`
+  - `content`
+  - `image` (Asset)
+  - `benefits` (List of Short text)
+  - `sortOrder` (Number)
+- `faq` (repeatable):
+  - `question` (or `title`)
+  - `answer`
+  - `sortOrder` (Number)
+
+Recommended `pageContent.slug` entries:
+
+- `global`
+- `home`
+- `about`
+- `services`
+- `gallery`
+- `faq`
+- `contact`
+- `contact-success`
+- `privacy-policy`
+- `terms`
+
+Schema details and JSON examples are in `CONTENTFUL_SCHEMA.md`.
+
+If Contentful values are missing, pages fall back to the existing hardcoded site content.
+
 ## Scripts
 
 - `npm run dev` - start development server

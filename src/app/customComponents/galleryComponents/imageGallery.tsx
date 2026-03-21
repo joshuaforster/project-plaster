@@ -15,10 +15,22 @@ export type GalleryItem = ImageItem;
 
 interface ImageGalleryProps {
   items: GalleryItem[];
+  labels?: {
+    openImageLabel?: string;
+    closeImageLabel?: string;
+    prevImageLabel?: string;
+    nextImageLabel?: string;
+    dialogLabelTemplate?: string;
+  };
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ items }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ items, labels }) => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const openImageLabel = labels?.openImageLabel ?? 'Open gallery image';
+  const closeImageLabel = labels?.closeImageLabel ?? 'Close full-screen image';
+  const prevImageLabel = labels?.prevImageLabel ?? 'View previous image';
+  const nextImageLabel = labels?.nextImageLabel ?? 'View next image';
+  const dialogLabelTemplate = labels?.dialogLabelTemplate ?? 'Gallery image {current} of {total}';
 
   const handlePrevious = () => {
     if (currentIndex !== null) {
@@ -46,7 +58,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ items }) => {
               type="button"
               onClick={() => setCurrentIndex(index)}
               className="relative h-[500px] w-full overflow-hidden border border-black text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
-              aria-label={`Open gallery image ${index + 1}`}
+              aria-label={`${openImageLabel} ${index + 1}`}
             >
               <div className="group h-full w-full">
                 <Image
@@ -78,6 +90,10 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ items }) => {
           altText={items[currentIndex].altText}
           currentIndex={currentIndex + 1}
           totalImages={items.length}
+          closeImageLabel={closeImageLabel}
+          prevImageLabel={prevImageLabel}
+          nextImageLabel={nextImageLabel}
+          dialogLabelTemplate={dialogLabelTemplate}
           onPrevious={handlePrevious}
           onNext={handleNext}
           onClose={closeFullscreen}

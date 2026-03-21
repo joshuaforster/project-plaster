@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
 
 interface NavLink {
   name: string;
@@ -11,7 +12,7 @@ interface NavLink {
   isPrimary?: boolean;
 }
 
-const navigationLinks: NavLink[] = [
+const defaultNavigationLinks: NavLink[] = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
   { name: 'Services', path: '/services' },
@@ -20,16 +21,47 @@ const navigationLinks: NavLink[] = [
   { name: 'Contact', path: '/contact', isPrimary: true },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  copy?: CopyPayload;
+}
+
+function toBoolean(value: unknown, fallback = false): boolean {
+  return typeof value === 'boolean' ? value : fallback;
+}
+
+function getNavigation(copy?: CopyPayload): NavLink[] {
+  const items: NavLink[] = [];
+  for (const item of getCopyObjectArray(copy, 'header.navigation')) {
+    const name = typeof item.name === 'string' ? item.name.trim() : '';
+    const path = typeof item.path === 'string' ? item.path.trim() : '';
+    if (!name || !path) {
+      continue;
+    }
+
+    items.push({
+      name,
+      path,
+      isPrimary: toBoolean(item.isPrimary),
+    });
+  }
+
+  return items.length ? items : defaultNavigationLinks;
+}
+
+export default function Header({ copy }: HeaderProps) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const navigationLinks = getNavigation(copy);
+  const openMenuLabel = getCopyText(copy, 'header.mobile.openAria', 'Open navigation menu');
+  const closeMenuLabel = getCopyText(copy, 'header.mobile.closeAria', 'Close navigation menu');
+  const navAriaLabel = getCopyText(copy, 'header.ariaLabel', 'Primary');
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const handleLinkClick = () => setMobileMenuOpen(false);
 
   return (
     <header className="sticky top-0 z-50 bg-[#212F41] text-[#EDEDED]">
-      <nav aria-label="Primary" className="px-4 py-2 lg:px-6">
+      <nav aria-label={navAriaLabel} className="px-4 py-2 lg:px-6">
         <div className="flex items-center justify-between mx-auto max-w-screen-xl">
           <Link href="/" className="flex items-center" onClick={handleLinkClick}>
             <Image
@@ -53,7 +85,7 @@ export default function Header() {
                     aria-current={isActive ? 'page' : undefined}
                     className={`rounded-sm px-2 py-1 text-sm font-light uppercase transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4] ${
                       link.isPrimary
-                        ? 'bg-[#D7BFA4] text-[#1A1F24] hover:bg-[#C5AB8E]'
+                        ? 'inline-flex h-10 items-center rounded-sm border border-[#D7BFA4] bg-[#D7BFA4] px-4 font-semibold text-[#1A1F24] shadow-sm hover:bg-[#C5AB8E] hover:border-[#C5AB8E]'
                         : isActive
                         ? 'text-[#D7BFA4]'
                         : 'text-[#EDEDED] hover:text-[#D7BFA4]'
@@ -73,7 +105,7 @@ export default function Header() {
               className="inline-flex flex-col items-center justify-center rounded-sm p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
-              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={isMobileMenuOpen ? closeMenuLabel : openMenuLabel}
             >
               <div className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}>
                 <div className="line"></div>

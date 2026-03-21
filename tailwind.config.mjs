@@ -10,8 +10,8 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
+        montserrat: ["var(--font-geist-sans)", "sans-serif"],
+        roboto: ["var(--font-geist-sans)", "sans-serif"],
       },
       colors: {
         customBlue: "#323D40",

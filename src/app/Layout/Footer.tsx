@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
 
-const navigation = {
+const defaultNavigation = {
   nav: [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -11,7 +12,7 @@ const navigation = {
   ],
   contact: [
     { name: 'Call Jack on 07946 057841', href: 'tel:07946057841' },
-    { name: 'Email jack@projectplaster.co.uk', href: 'mailto:jack@projectplaster.co.uk' },
+    { name: 'Email jack@projectplaster.com', href: 'mailto:jack@projectplaster.com' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy' },
@@ -19,8 +20,57 @@ const navigation = {
   ],
 };
 
-export default function Footer() {
+interface FooterLink {
+  name: string;
+  href: string;
+}
+
+interface FooterProps {
+  copy?: CopyPayload;
+}
+
+function parseLinks(copy: CopyPayload, path: string, fallback: FooterLink[]): FooterLink[] {
+  const items = getCopyObjectArray(copy, path)
+    .map((item) => {
+      const name = typeof item.name === 'string' ? item.name.trim() : '';
+      const href = typeof item.href === 'string' ? item.href.trim() : '';
+      if (!name || !href) {
+        return null;
+      }
+
+      return { name, href };
+    })
+    .filter((item): item is FooterLink => item !== null);
+
+  return items.length ? items : fallback;
+}
+
+export default function Footer({ copy }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const brandName = getCopyText(copy, 'footer.brandName', 'Project Plaster');
+  const brandDescription = getCopyText(
+    copy,
+    'footer.brandDescription',
+    'Professional plastering across Norfolk & Suffolk. Clean preparation and a smooth finish.',
+  );
+
+  const navLinks = parseLinks(copy, 'footer.navigation', defaultNavigation.nav);
+  const legalLinks = parseLinks(copy, 'footer.legalLinks', defaultNavigation.legal);
+  const contactLinks = parseLinks(copy, 'footer.contactLinks', defaultNavigation.contact);
+
+  const navHeading = getCopyText(copy, 'footer.headings.navigation', 'Navigation');
+  const legalHeading = getCopyText(copy, 'footer.headings.legal', 'Legal');
+  const contactHeading = getCopyText(copy, 'footer.headings.contact', 'Contact');
+  const copyrightText = getCopyText(
+    copy,
+    'footer.bottom.copyright',
+    `© ${currentYear} Project Plaster. All rights reserved.`,
+  );
+  const locationText = getCopyText(
+    copy,
+    'footer.bottom.location',
+    'Based in Norwich, serving Norfolk & Suffolk.',
+  );
 
   return (
     <footer className="bg-[#1A1F24] text-white border-t border-[#E5E5E5] font-roboto">
@@ -28,11 +78,10 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div>
             <h2 className="text-2xl font-bold text-white">
-              Project Plaster
+              {brandName}
             </h2>
             <p className="mt-6 text-sm text-white max-w-sm leading-relaxed">
-              Professional plastering across Norfolk & Suffolk.
-              Smooth finish. Done properly.
+              {brandDescription}
             </p>
           </div>
 
@@ -40,10 +89,10 @@ export default function Footer() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  Navigation
+                  {navHeading}
                 </h3>
                 <ul aria-label="Footer navigation" className="mt-6 space-y-3">
-                  {navigation.nav.map((item) => (
+                  {navLinks.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -60,10 +109,10 @@ export default function Footer() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  Legal
+                  {legalHeading}
                 </h3>
                 <ul aria-label="Legal pages" className="mt-6 space-y-3">
-                  {navigation.legal.map((item) => (
+                  {legalLinks.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -78,10 +127,10 @@ export default function Footer() {
 
               <div>
                 <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  Contact
+                  {contactHeading}
                 </h3>
                 <ul aria-label="Contact links" className="mt-6 space-y-3">
-                  {navigation.contact.map((item) => (
+                  {contactLinks.map((item) => (
                     <li key={item.name}>
                       <a
                         href={item.href}
@@ -99,10 +148,10 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-[#2E3337] pt-8">
           <p className="text-xs text-white leading-5">
-            &copy; {currentYear} Project Plaster. All rights reserved.
+            {copyrightText}
           </p>
           <p className="text-xs text-white leading-5 mt-2">
-            Based in Norwich — proudly serving Norfolk & Suffolk.
+            {locationText}
           </p>
         </div>
       </div>

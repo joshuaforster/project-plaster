@@ -3,6 +3,8 @@ import AboutHead from "../Pages/AboutPages/AboutHead";
 import AboutProcess from "../Pages/AboutPages/AboutProcess";
 import HeaderSection from "../customComponents/headerSection";
 import CTA from "../customComponents/cta";
+import { getPageContent } from "@/lib/contentful/queries";
+import { getCopyText } from "@/lib/contentful/copy";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,17 +15,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function About() {
+export const revalidate = 300;
+
+export default async function About() {
+  const pageContent = await getPageContent("about");
+  const aboutCopy = pageContent?.copy;
+  const headerTitle = getCopyText(aboutCopy, "header.title", "About");
+  const headerImage = getCopyText(aboutCopy, "header.imageUrl", "/images/jack2.webp");
+
   return (
     <>
       <HeaderSection
-        image="/images/jack2.webp"
-        title="About"
+        image={headerImage}
+        title={headerTitle}
+        copy={aboutCopy}
+        copyPath="header"
       />
 
-      <AboutHead />
-      <AboutProcess />
-      <CTA />
+      <AboutHead copy={aboutCopy} />
+      <AboutProcess copy={aboutCopy} />
+      <CTA copy={aboutCopy} copyPath="cta" />
     </>
   );
 }

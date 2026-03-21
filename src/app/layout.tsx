@@ -3,11 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
+import { getPageContent } from "@/lib/contentful/queries";
 
 const SITE_URL = "https://projectplaster.co.uk";
 const SITE_NAME = "Project Plaster";
 const DEFAULT_DESCRIPTION =
-  "Professional plastering, re-skimming and repair services across Norwich, Norfolk and Suffolk. Clean finish, no shortcuts.";
+  "Professional plastering, re-skimming and repair services across Norwich, Norfolk and Suffolk.";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,20 +71,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export const revalidate = 300;
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const globalContent = await getPageContent("global");
+  const globalCopy = globalContent?.copy;
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <Header />
+        <Header copy={globalCopy} />
         <main id="main-content">{children}</main>
-        <Footer />
+        <Footer copy={globalCopy} />
       </body>
     </html>
   );
