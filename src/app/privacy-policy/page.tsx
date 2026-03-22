@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
 import { getCopyText } from "@/lib/contentful/copy";
 import { getPageContent } from "@/lib/contentful/queries";
+import ScrollReveal from "../customComponents/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -24,20 +25,20 @@ export default async function PrivacyPolicyPage() {
   if (markdownBody) {
     return (
       <section className="bg-white py-16 text-[#1A1F24]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <ScrollReveal className="mx-auto max-w-7xl px-6 lg:px-8">
           <h1 className="text-3xl font-bold">{pageTitle}</h1>
           <p className="mt-4 text-sm text-[#3B464B]">{lastUpdated}</p>
           <article className="prose prose-slate mt-8 max-w-none prose-headings:text-[#1A1F24] prose-p:text-[#1A1F24] prose-li:text-[#1A1F24]">
             <ReactMarkdown>{markdownBody}</ReactMarkdown>
           </article>
-        </div>
+        </ScrollReveal>
       </section>
     );
   }
 
   return (
     <section className="bg-white py-16 text-[#1A1F24]">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <ScrollReveal className="mx-auto max-w-7xl px-6 lg:px-8">
         <h1 className="text-3xl font-bold">{pageTitle}</h1>
         <p className="mt-4 text-sm text-[#3B464B]">{lastUpdated}</p>
 
@@ -143,7 +144,7 @@ export default async function PrivacyPolicyPage() {
           </a>{" "}
           or call <a className="underline" href="tel:07946057841">07946 057841</a>.
         </p>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }

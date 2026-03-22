@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import Button from "@/app/customComponents/buttons";
 import { getCopyText, type CopyPayload } from "@/lib/contentful/copy";
+import ScrollReveal from "@/app/customComponents/ScrollReveal";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -137,100 +138,102 @@ export default function ContactClient({ copy }: ContactClientProps) {
       <div className="py-16 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2">
         <div className="px-6 lg:px-8">
           <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="flex flex-col mt-4">
+            <ScrollReveal className="flex flex-col mt-4">
               <h1 className="text-4xl font-bold mb-4">{heading}</h1>
               <p className="text-lg">{intro}</p>
-            </div>
+            </ScrollReveal>
 
             <div className="mt-12">
-              <form
-                name="contact"
-                method="POST"
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <input type="hidden" name="form-name" value="contact" />
-                <div className="hidden">
-                  <label htmlFor="bot-field">
-                    Don&apos;t fill this out if you&apos;re human:
-                    <input
-                      id="bot-field"
-                      name="bot-field"
-                      type="text"
-                      tabIndex={-1}
-                      autoComplete="off"
-                    />
-                  </label>
-                </div>
-
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold">
-                    {formLabels.name} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    autoComplete="name"
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold">
-                    {formLabels.email} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    autoComplete="email"
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold">
-                    {formLabels.message} <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    required
-                    minLength={15}
-                    className={textareaClasses}
-                  />
-                </div>
-
-                <div>
-                  <label className="flex items-start text-sm">
-                    <input
-                      id="consent"
-                      name="consent"
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => setIsChecked((prev) => !prev)}
-                      required
-                      className="h-4 w-4 border-gray-300 text-[#D7BFA4] focus:ring-[#D7BFA4]"
-                    />
-                    <span className="ml-2">
-                      {formLabels.consent}
-                    </span>
-                  </label>
-                </div>
-
-                <Button
-                  disabled={!isChecked || submitStatus === "submitting"}
-                  type="submit"
-                  variant="primary"
-                  className="w-full"
+              <ScrollReveal>
+                <form
+                  name="contact"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
                 >
-                  {submitStatus === "submitting" ? formLabels.submitLoading : formLabels.submitIdle}
-                </Button>
-              </form>
+                  <input type="hidden" name="form-name" value="contact" />
+                  <div className="hidden">
+                    <label htmlFor="bot-field">
+                      Don&apos;t fill this out if you&apos;re human:
+                      <input
+                        id="bot-field"
+                        name="bot-field"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-semibold">
+                      {formLabels.name} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      autoComplete="name"
+                      className={inputClasses}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold">
+                      {formLabels.email} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      autoComplete="email"
+                      className={inputClasses}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-semibold">
+                      {formLabels.message} <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      required
+                      minLength={15}
+                      className={textareaClasses}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="flex items-start text-sm">
+                      <input
+                        id="consent"
+                        name="consent"
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => setIsChecked((prev) => !prev)}
+                        required
+                        className="h-4 w-4 border-gray-300 text-[#D7BFA4] focus:ring-[#D7BFA4]"
+                      />
+                      <span className="ml-2">
+                        {formLabels.consent}
+                      </span>
+                    </label>
+                  </div>
+
+                  <Button
+                    disabled={!isChecked || submitStatus === "submitting"}
+                    type="submit"
+                    variant="primary"
+                    className="w-full"
+                  >
+                    {submitStatus === "submitting" ? formLabels.submitLoading : formLabels.submitIdle}
+                  </Button>
+                </form>
+              </ScrollReveal>
               <div aria-live="polite" className="mt-4 text-sm">
                 {submitStatus === "success" && (
                   <p className="text-green-700">
@@ -242,7 +245,7 @@ export default function ContactClient({ copy }: ContactClientProps) {
                 )}
               </div>
 
-              <div className="mt-16 space-y-4">
+              <ScrollReveal className="mt-16 space-y-4" delayMs={80}>
                 <div>
                   <span className="font-semibold">{phoneLabel}</span>{" "}
                   <a href={getTelHref(phoneValue)} className="hover:text-[#D7BFA4]">
@@ -259,9 +262,9 @@ export default function ContactClient({ copy }: ContactClientProps) {
                   <span className="font-semibold">{areasLabel}</span>{" "}
                   {areasValue}
                 </div>
-              </div>
+              </ScrollReveal>
 
-              <div className="mt-16">
+              <ScrollReveal className="mt-16" delayMs={120}>
                 <h2 className="text-2xl font-bold mb-4">{mapHeading}</h2>
                 <p className="mb-6">
                   {mapIntro}
@@ -278,7 +281,7 @@ export default function ContactClient({ copy }: ContactClientProps) {
                     referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>

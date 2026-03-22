@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
 
 const defaultNavigation = {
@@ -75,73 +76,79 @@ export default function Footer({ copy }: FooterProps) {
   return (
     <footer className="bg-[#1A1F24] text-white border-t border-[#E5E5E5] font-roboto">
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-20 lg:px-8">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div>
-            <h2 className="text-2xl font-bold text-white">
-              {brandName}
-            </h2>
-            <p className="mt-6 text-sm text-white max-w-sm leading-relaxed">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-12">
+          <div className="lg:col-span-1">
+            <Link
+              href="/"
+              aria-label={brandName}
+              className="inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
+            >
+              <Image
+                src="/images/FINAL LOGO.png"
+                alt={brandName}
+                width={210}
+                height={72}
+                className="h-auto w-44 sm:w-52"
+              />
+            </Link>
+            <p className="mt-4 text-sm text-white leading-relaxed">
               {brandDescription}
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  {navHeading}
-                </h3>
-                <ul aria-label="Footer navigation" className="mt-6 space-y-3">
-                  {navLinks.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8 lg:col-span-2 lg:mt-0">
+            <div>
+              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+                {navHeading}
+              </h3>
+              <ul aria-label="Footer navigation" className="mt-6 space-y-3">
+                {navLinks.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  {legalHeading}
-                </h3>
-                <ul aria-label="Legal pages" className="mt-6 space-y-3">
-                  {legalLinks.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+                {legalHeading}
+              </h3>
+              <ul aria-label="Legal pages" className="mt-6 space-y-3">
+                {legalLinks.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              <div>
-                <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-                  {contactHeading}
-                </h3>
-                <ul aria-label="Contact links" className="mt-6 space-y-3">
-                  {contactLinks.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+                {contactHeading}
+              </h3>
+              <ul aria-label="Contact links" className="mt-6 space-y-3">
+                {contactLinks.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      className="text-sm text-white hover:text-[#D7BFA4] transition-colors"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

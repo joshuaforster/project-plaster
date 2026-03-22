@@ -1,4 +1,5 @@
 import { getCopyText, type CopyPayload } from '@/lib/contentful/copy';
+import ScrollReveal from '@/app/customComponents/ScrollReveal';
 
 interface LocationProps {
   copy?: CopyPayload;
@@ -29,7 +30,7 @@ const Location = ({ copy }: LocationProps) => {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 px-6 lg:px-8 items-center">
 
         {/* TEXT */}
-        <div>
+        <ScrollReveal>
           <h2 className="text-4xl font-bold text-[#1A1F24] leading-tight">
             {titleLeading} <span className="text-[#D7BFA4]">{titleAccent}</span>
           </h2>
@@ -45,7 +46,7 @@ const Location = ({ copy }: LocationProps) => {
           <p className="mt-4 text-lg text-[#1A1F24] leading-8">
             {paragraphThree}
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* MAP */}
         <div className="w-full h-[400px] lg:h-[500px] overflow-hidden shadow-md ring-1 ring-[#D7BFA4]/40">

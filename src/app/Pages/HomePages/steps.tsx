@@ -1,4 +1,5 @@
 import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
+import ScrollReveal from '@/app/customComponents/ScrollReveal';
 
 interface StepType {
   id: number;
@@ -67,17 +68,17 @@ const Steps = ({ copy }: StepsProps) => {
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="lg:flex lg:items-center lg:justify-between">
           {/* Heading */}
-          <div className="max-w-2xl lg:mx-0 lg:max-w-xl">
+          <ScrollReveal className="max-w-2xl lg:mx-0 lg:max-w-xl">
             <h2 className="text-5xl font-bold leading-[1.4] capitalize text-white">
               {headingLeading}{" "}
               <span className="text-[#D7BFA4]">{headingAccent}</span>
             </h2>
-          </div>
+          </ScrollReveal>
 
           {/* Steps grid */}
           <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 sm:gap-y-16 lg:mt-0 lg:ml-16 lg:max-w-xl lg:grid-cols-2">
-            {steps.map((step) => (
-              <Step key={step.id} step={step} />
+            {steps.map((step, index) => (
+              <Step key={step.id} step={step} delayMs={index * 80} />
             ))}
           </div>
         </div>
@@ -86,14 +87,16 @@ const Steps = ({ copy }: StepsProps) => {
   );
 };
 
-const Step = ({ step }: { step: StepType }) => {
+const Step = ({ step, delayMs = 0 }: { step: StepType; delayMs?: number }) => {
   return (
-    <dl className="flex flex-col gap-y-3 border-l border-[#D7BFA4] pl-6 text-white">
-      <dt className="text-sm leading-6 text-gray-300">{step.description}</dt>
-      <dd className="order-first text-3xl text-[#D7BFA4] font-semibold tracking-tight">
-        {step.name}
-      </dd>
-    </dl>
+    <ScrollReveal delayMs={delayMs}>
+      <dl className="flex flex-col gap-y-3 border-l border-[#D7BFA4] pl-6 text-white">
+        <dt className="text-sm leading-6 text-gray-300">{step.description}</dt>
+        <dd className="order-first text-3xl text-[#D7BFA4] font-semibold tracking-tight">
+          {step.name}
+        </dd>
+      </dl>
+    </ScrollReveal>
   );
 };
 

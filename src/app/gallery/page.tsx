@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import ImageGallery from '../customComponents/galleryComponents/imageGallery';
+import ScrollReveal from '../customComponents/ScrollReveal';
 import { galleryImages } from '../Data/images';
 import { getPageContent } from '@/lib/contentful/queries';
 import { getCopyText } from '@/lib/contentful/copy';
@@ -34,14 +35,14 @@ export default async function Gallery() {
   return (
     <section className="bg-white py-8">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-        <div className="max-w-screen-lg mx-auto text-gray-800 sm:text-lg text-center">
+        <ScrollReveal className="max-w-screen-lg mx-auto text-gray-800 sm:text-lg text-center">
           <h1 className="mb-4 text-4xl tracking-tight font-semibold text-gray-900">{heading}</h1>
           {intro ? (
             <p className="mx-auto mt-3 max-w-3xl text-lg text-[#3B464B]">
               {intro}
             </p>
           ) : null}
-        </div>
+        </ScrollReveal>
 
         <div>
           <ImageGallery

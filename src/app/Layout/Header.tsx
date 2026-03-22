@@ -48,6 +48,10 @@ function getNavigation(copy?: CopyPayload): NavLink[] {
   return items.length ? items : defaultNavigationLinks;
 }
 
+function getPhoneHref(phone: string): string {
+  return `tel:${phone.replace(/\s+/g, '')}`;
+}
+
 export default function Header({ copy }: HeaderProps) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -55,12 +59,32 @@ export default function Header({ copy }: HeaderProps) {
   const openMenuLabel = getCopyText(copy, 'header.mobile.openAria', 'Open navigation menu');
   const closeMenuLabel = getCopyText(copy, 'header.mobile.closeAria', 'Close navigation menu');
   const navAriaLabel = getCopyText(copy, 'header.ariaLabel', 'Primary');
+  const phoneLabel = getCopyText(copy, 'header.contactBar.phoneLabel', 'Call');
+  const phoneValue = getCopyText(copy, 'header.contactBar.phoneValue', '07946 057841');
+  const emailLabel = getCopyText(copy, 'header.contactBar.emailLabel', 'Email');
+  const emailValue = getCopyText(copy, 'header.contactBar.emailValue', 'jack@projectplaster.com');
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   const handleLinkClick = () => setMobileMenuOpen(false);
 
   return (
     <header className="sticky top-0 z-50 bg-[#212F41] text-[#EDEDED]">
+      <div className="border-b border-[#32465F] bg-[#101821]">
+        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-center gap-x-6 gap-y-1.5 px-4 py-2.5 text-sm font-bold text-[#F3F4F6] lg:justify-end lg:px-6">
+          <a
+            href={getPhoneHref(phoneValue)}
+            className="transition-colors hover:text-[#D7BFA4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
+          >
+            {phoneLabel}: {phoneValue}
+          </a>
+          <a
+            href={`mailto:${emailValue}`}
+            className="transition-colors hover:text-[#D7BFA4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D7BFA4]"
+          >
+            {emailLabel}: {emailValue}
+          </a>
+        </div>
+      </div>
       <nav aria-label={navAriaLabel} className="px-4 py-2 lg:px-6">
         <div className="flex items-center justify-between mx-auto max-w-screen-xl">
           <Link href="/" className="flex items-center" onClick={handleLinkClick}>

@@ -1,5 +1,6 @@
 import Button from "./buttons";
 import { getCopyText, type CopyPayload } from "@/lib/contentful/copy";
+import ScrollReveal from "./ScrollReveal";
 
 interface CTAProps {
   copy?: CopyPayload;
@@ -31,26 +32,28 @@ export default function CTA({ copy, copyPath = "cta" }: CTAProps) {
         >
           <div className="absolute inset-0 bg-black/70"></div>
 
-          <h2
-            id="cta-heading"
-            className="relative mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight"
-          >
-            {heading}
-          </h2>
+          <ScrollReveal className="relative">
+            <h2
+              id="cta-heading"
+              className="mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-tight"
+            >
+              {heading}
+            </h2>
 
-          <p className="relative mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white">
-            {body}
-          </p>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white">
+              {body}
+            </p>
 
-          <div className="relative mt-10 flex items-center justify-center gap-x-6">
-            <Button to={primaryHref} variant="primary" size="large">
-              {primaryLabel}
-            </Button>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Button to={primaryHref} variant="primary" size="large">
+                {primaryLabel}
+              </Button>
 
-            <Button to={secondaryHref} variant="tertiary" size="large">
-              {secondaryLabel} <span aria-hidden="true">→</span>
-            </Button>
-          </div>
+              <Button to={secondaryHref} variant="tertiary" size="large">
+                {secondaryLabel} <span aria-hidden="true">→</span>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

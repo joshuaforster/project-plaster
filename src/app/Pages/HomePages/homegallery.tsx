@@ -2,6 +2,7 @@ import Button from '../../customComponents/buttons';
 import Image from 'next/image';
 import { galleryImages } from '@/app/Data/images';
 import { getCopyText, type CopyPayload } from '@/lib/contentful/copy';
+import ScrollReveal from '@/app/customComponents/ScrollReveal';
 
 const selectedImages = galleryImages.slice(0, 3);
 
@@ -22,14 +23,14 @@ export default function HomeGallery({ copy }: HomeGalleryProps) {
   return (
     <section className="bg-white py-24">
       <div className="px-6 lg:px-8 mx-auto max-w-7xl">
-        <div className="text-center">
+        <ScrollReveal className="text-center">
           <h2 className="text-4xl font-bold text-[#1A1F24]">
             {heading}
           </h2>
           <p className="mt-4 text-lg text-[#1A1F24]/90 max-w-2xl mx-auto">
             {intro}
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
           {selectedImages.map((image, index) => (
@@ -48,7 +49,7 @@ export default function HomeGallery({ copy }: HomeGalleryProps) {
           ))}
         </div>
 
-        <div className="flex justify-center mt-12">
+        <ScrollReveal className="flex justify-center mt-12" delayMs={100}>
           <Button
             variant="primary"
             to="/gallery"
@@ -57,7 +58,7 @@ export default function HomeGallery({ copy }: HomeGalleryProps) {
           >
             {ctaLabel}
           </Button>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

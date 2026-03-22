@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Button from "@/app/customComponents/buttons";
+import ScrollReveal from "@/app/customComponents/ScrollReveal";
 import { getPageContent } from "@/lib/contentful/queries";
 import { getCopyText } from "@/lib/contentful/copy";
 
@@ -28,7 +29,7 @@ export default async function ContactSuccess() {
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center text-center px-4 py-16">
-      <div className="max-w-xl">
+      <ScrollReveal className="max-w-xl">
         <h1 className="text-3xl font-bold mb-4">{heading}</h1>
         <p className="text-lg text-gray-700">
           {message}
@@ -38,7 +39,7 @@ export default async function ContactSuccess() {
             {buttonLabel}
           </Button>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
   );
 }

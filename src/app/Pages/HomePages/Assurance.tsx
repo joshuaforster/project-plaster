@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Button from '@/app/customComponents/buttons';
 import { galleryImages } from '@/app/Data/images';
 import { getCopyObjectArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
+import ScrollReveal from '@/app/customComponents/ScrollReveal';
 
 const defaultFeatures = [
   { name: 'Full preparation', description: 'We protect surfaces, mask edges, and leave every room spotless.' },
@@ -51,7 +52,7 @@ export default function Assurance({ copy }: AssuranceProps) {
 
           {/* --- TEXT SECTION --- */}
           <div className="lg:pr-8">
-            <div className="lg:max-w-lg">
+            <ScrollReveal className="lg:max-w-lg">
               <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
                 {titleLine}<br />
                 <span className="text-[#D7BFA4]">{titleAccent}</span>
@@ -78,7 +79,7 @@ export default function Assurance({ copy }: AssuranceProps) {
                   {ctaLabel}
                 </Button>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
           {/* --- IMAGE SECTION --- */}

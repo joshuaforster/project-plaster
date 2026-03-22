@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { galleryImages } from "@/app/Data/images";
 import { getCopyObjectArray, getCopyText, type CopyPayload } from "@/lib/contentful/copy";
+import ScrollReveal from "@/app/customComponents/ScrollReveal";
 
 interface AboutProcessStep {
   title: string;
@@ -80,13 +81,19 @@ export default function AboutProcess({ copy }: AboutProcessProps) {
     <section className="bg-[#1A1F24] py-24 font-roboto">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-24">
         {sectionHeading ? (
-          <h2 className="mb-12 text-center text-4xl font-bold text-white">
-            {sectionHeading}
-          </h2>
+          <ScrollReveal className="mb-12">
+            <h2 className="text-center text-4xl font-bold text-white">
+              {sectionHeading}
+            </h2>
+          </ScrollReveal>
         ) : null}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           {process.map((step, idx) => (
-            <div key={`${step.title}-${idx}`} className="text-center flex flex-col items-center">
+            <ScrollReveal
+              key={`${step.title}-${idx}`}
+              className="text-center flex flex-col items-center"
+              delayMs={idx * 90}
+            >
               <div className="relative w-full h-72 md:h-80 lg:h-[420px] overflow-hidden shadow-lg ring-1 ring-[#D7BFA4]/50">
                 <Image
                   src={step.image.src}
@@ -104,7 +111,7 @@ export default function AboutProcess({ copy }: AboutProcessProps) {
               <p className="mt-4 text-lg text-white leading-relaxed max-w-lg mx-auto">
                 {step.text.join(" ")}
               </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

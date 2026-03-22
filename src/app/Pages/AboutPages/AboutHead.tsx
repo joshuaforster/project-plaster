@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { galleryImages } from "@/app/Data/images";
 import { getCopyText, type CopyPayload } from "@/lib/contentful/copy";
+import ScrollReveal from "@/app/customComponents/ScrollReveal";
 
 interface AboutHeadProps {
   copy?: CopyPayload;
@@ -32,7 +33,7 @@ export default function AboutHead({ copy }: AboutHeadProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16 items-center">
 
           {/* --- TEXT SIDE --- */}
-          <div className="text-[#1A1F24] flex flex-col justify-center">
+          <ScrollReveal className="text-[#1A1F24] flex flex-col justify-center">
             <h2 className="text-4xl font-bold leading-tight tracking-tight">
               {title}
             </h2>
@@ -48,7 +49,7 @@ export default function AboutHead({ copy }: AboutHeadProps) {
             <p className="mt-4 text-lg leading-relaxed max-w-lg">
               {paragraphThree}
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* --- IMAGE SIDE --- */}
           <div className="relative h-[450px] w-full overflow-hidden shadow-md ring-1 ring-[#D7BFA4]/50">

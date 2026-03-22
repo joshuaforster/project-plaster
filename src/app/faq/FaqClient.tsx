@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { getCopyText, type CopyPayload } from "@/lib/contentful/copy";
+import ScrollReveal from "@/app/customComponents/ScrollReveal";
 
 export interface FaqItem {
   id: string;
@@ -71,16 +72,18 @@ export default function FaqClient({ faqs, copy }: FaqClientProps) {
   return (
     <section className="bg-[#F5F5F4]">
       <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <h1 className="mb-4 text-center text-4xl font-bold text-[#1F2937]">
-          {heading}
-        </h1>
-        <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-[#3B464B]">
-          {intro}
-        </p>
+        <ScrollReveal>
+          <h1 className="mb-4 text-center text-4xl font-bold text-[#1F2937]">
+            {heading}
+          </h1>
+          <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-[#3B464B]">
+            {intro}
+          </p>
+        </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 border-t border-gray-200 pt-10">
           {faqs.map((faq, index) => (
-            <div key={faq.id} className="pb-6 border-b border-gray-200">
+            <ScrollReveal key={faq.id} className="pb-6 border-b border-gray-200" delayMs={index * 45}>
               <button
                 type="button"
                 onClick={() => toggleFAQ(index)}
@@ -108,7 +111,7 @@ export default function FaqClient({ faqs, copy }: FaqClientProps) {
                   </p>
                 </div>
               )}
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

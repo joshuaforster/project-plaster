@@ -1,7 +1,7 @@
 import Button from '@/app/customComponents/buttons';
 import { galleryImages } from '@/app/Data/images';
-import { getCopyText, type CopyPayload } from '@/lib/contentful/copy';
-import Image from 'next/image';
+import { getCopyStringArray, getCopyText, type CopyPayload } from '@/lib/contentful/copy';
+import HeroBackgroundCarousel from './HeroBackgroundCarousel';
 
 interface HeroContent {
   eyebrow: string;
@@ -56,22 +56,24 @@ export default function Hero({ copy }: HeroProps) {
     imageAlt: getCopyText(copy, 'hero.imageAlt', defaultHeroContent.imageAlt),
   };
 
+  const fallbackSlides = [hero.imageUrl, ...galleryImages.map((image) => image.src)];
+  const copySlides = getCopyStringArray(copy, 'hero.imageUrls', fallbackSlides);
+  const uniqueSlideUrls = Array.from(new Set(copySlides.filter(Boolean)));
+  const heroSlides = uniqueSlideUrls.map((src) => {
+    const existing = galleryImages.find((image) => image.src === src);
+    return {
+      src,
+      alt: existing?.alt || hero.imageAlt,
+    };
+  });
+
   return (
     <section className="relative isolate flex min-h-[80vh] overflow-hidden pt-14">
-      <div className="absolute inset-0 -z-[1]">
-        <Image
-          src={hero.imageUrl}
-          fill
-          alt={hero.imageAlt}
-          priority
-          sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-[#1A1F24]/20"></div>
-      </div>
+      <HeroBackgroundCarousel slides={heroSlides} />
+      <div className="absolute inset-0 -z-[1] bg-[#1A1F24]/20"></div>
 
       <div className="w-full px-4 lg:px-6 max-w-screen-xl mx-auto flex items-center">
-        <div className="bg-[#1A1F24]/90 backdrop-blur-sm p-8 lg:p-10 max-w-2xl lg:max-w-xl text-left border-l-4 border-[#D7BFA4]">
+        <div className="hero-copy-enter bg-[#1A1F24]/90 backdrop-blur-sm p-8 lg:p-10 max-w-2xl lg:max-w-xl text-left border-l-4 border-[#D7BFA4]">
           <p className="text-lg text-[#EDEDED] tracking-wide">
             {hero.eyebrow}
           </p>
